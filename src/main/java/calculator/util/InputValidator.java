@@ -11,6 +11,11 @@ public class InputValidator {
 
         input = input.trim();
 
+        if (input.isEmpty()) {
+
+            return "";
+        }
+
         return input;
     }
 }

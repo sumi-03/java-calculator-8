@@ -6,9 +6,14 @@ public class StringCalculator {
 
     private final InputValidator inputValidator = new InputValidator();
 
-    public int calculate(final String input) {
+    public int calculate(String input) {
 
-        String trimmedInput = inputValidator.validateEmpty(input);
+        input = inputValidator.validateEmpty(input);
+
+        if (input.isEmpty()) {
+
+            return 0;
+        }
 
         return 1; // 임시 반환
     }
