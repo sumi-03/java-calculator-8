@@ -34,6 +34,18 @@ public class StringCalculator {
 
         InputValidator.validateAllowedCharacters(numbers, delimiter);
 
-        return 1; // 임시 반환
+        String[] tokens = numbers.split(delimiter);
+
+        int sum = 0;
+
+        for (String token : tokens) {
+
+            if (!token.isEmpty()) {
+
+                sum += Integer.parseInt(token);
+            }
+        }
+
+        return sum;
     }
 }
