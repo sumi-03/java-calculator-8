@@ -13,7 +13,7 @@ public class InputValidatorTest {
     @Test
     void 커스텀구분자_형식이_올바르면_Matcher를_반환한다() {
         // given
-        String input = "//;\n1;2;3";
+        String input = "//;\\n1;2;3";
 
         // when
         Matcher matcher = InputValidator.validateCustomDelimiterFormat(input);
@@ -27,7 +27,7 @@ public class InputValidatorTest {
     @Test
     void 커스텀구분자_형식이_잘못되면_예외를_발생시킨다() {
         // given
-        String input = "//;\r1;2";
+        String input = "//;\\r1;2";
 
         // when & then
         assertThrows(IllegalArgumentException.class,
