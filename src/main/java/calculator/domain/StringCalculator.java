@@ -32,6 +32,8 @@ public class StringCalculator {
             numbers = input;
         }
 
+        InputValidator.validateAllowedCharacters(numbers, delimiter);
+
         return 1; // 임시 반환
     }
 }

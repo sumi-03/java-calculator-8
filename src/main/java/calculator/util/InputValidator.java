@@ -40,4 +40,41 @@ public class InputValidator {
 
         return matcher; // 검증 통과된 matcher 반환
     }
+
+    public static void validateAllowedCharacters(String input, String delimiter) {
+
+        // 커스텀 구분자 선언부 제외
+        if (input.startsWith("//")) {
+
+            int index = input.indexOf("\n");
+
+            if (index != -1) {
+
+                input = input.substring(index + 1);
+            }
+        }
+
+        String[] delimiters = delimiter.split("\\|");
+        StringBuilder patternBuilder = new StringBuilder("^[0-9");
+
+        for (String d : delimiters) {
+
+            for (char c : d.toCharArray()) {
+
+                if ("\\^$.|?*+()[]{}".indexOf(c) >= 0) {
+                    patternBuilder.append("\\").append(c);
+                } else {
+                    patternBuilder.append(c);
+                }
+            }
+        }
+
+        patternBuilder.append("\\n]+$");
+        String allowedPattern = patternBuilder.toString();
+
+        if (!input.matches(allowedPattern)) {
+
+            throw new IllegalArgumentException("입력값에 허용되지 않은 문자가 포함되어 있습니다.");
+        }
+    }
 }
