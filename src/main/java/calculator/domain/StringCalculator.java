@@ -5,7 +5,7 @@ import calculator.util.InputValidator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static calculator.util.CalculatorConstants.DEFAULT_DELIMITERS;
+import static calculator.util.Constants.DEFAULT_DELIMITERS;
 
 public class StringCalculator {
 

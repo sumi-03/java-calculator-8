@@ -3,7 +3,7 @@ package calculator.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static calculator.util.CalculatorConstants.CUSTOM_DELIMITER_PATTERN;
+import static calculator.util.Constants.CUSTOM_DELIMITER_PATTERN;
 
 public class InputValidator {
 
