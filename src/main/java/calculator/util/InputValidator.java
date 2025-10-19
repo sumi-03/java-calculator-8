@@ -43,39 +43,50 @@ public class InputValidator {
 
     public static void validateAllowedCharacters(String input, String delimiter) {
 
-        // 커스텀 구분자 선언부 제외
+        String sanitizedInput = removeCustomDelimiterDeclaration(input);
+        String allowedPattern = buildAllowedPattern(delimiter);
+
+        if (!sanitizedInput.matches(allowedPattern)) {
+
+            throw new IllegalArgumentException("입력값에 허용되지 않은 문자가 포함되어 있습니다.");
+        }
+    }
+
+    private static String removeCustomDelimiterDeclaration(String input) {
+
         if (input.startsWith("//")) {
 
             int index = input.indexOf("\n");
 
             if (index != -1) {
 
-                input = input.substring(index + 1);
+                return input.substring(index + 1);
             }
         }
 
+        return input;
+    }
+
+    private static String buildAllowedPattern(String delimiter) {
+
         String[] delimiters = delimiter.split("\\|");
-        StringBuilder patternBuilder = new StringBuilder("^[0-9");
+        StringBuilder builder = new StringBuilder("^[0-9");
 
         for (String d : delimiters) {
 
             for (char c : d.toCharArray()) {
 
                 if ("\\^$.|?*+()[]{}".indexOf(c) >= 0) {
-                    patternBuilder.append("\\").append(c);
+
+                    builder.append("\\").append(c);
                 } else {
-                    patternBuilder.append(c);
+                    builder.append(c);
                 }
             }
         }
 
-        patternBuilder.append("\\n]+$");
-        String allowedPattern = patternBuilder.toString();
-
-        if (!input.matches(allowedPattern)) {
-
-            throw new IllegalArgumentException("입력값에 허용되지 않은 문자가 포함되어 있습니다.");
-        }
+        builder.append("\\n]+$");
+        return builder.toString();
     }
 
     public static void validateNoNegative(String[] tokens) {
