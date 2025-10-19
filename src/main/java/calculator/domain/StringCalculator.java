@@ -5,7 +5,6 @@ import calculator.util.InputValidator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static calculator.util.CalculatorConstants.CUSTOM_DELIMITER_PATTERN;
 import static calculator.util.CalculatorConstants.DEFAULT_DELIMITERS;
 
 public class StringCalculator {
@@ -19,12 +18,12 @@ public class StringCalculator {
             return 0;
         }
 
-        Matcher matcher = Pattern.compile(CUSTOM_DELIMITER_PATTERN).matcher(input);
+        Matcher matcher = InputValidator.validateCustomDelimiterFormat(input);
 
         String numbers;
         String delimiter = DEFAULT_DELIMITERS;
 
-        if (matcher.matches()) {
+        if (matcher != null) { // 커스텀 구분자 존재
 
             String customDelimiter = Pattern.quote(matcher.group(1)); // 커스텀 구분자
             delimiter = DEFAULT_DELIMITERS + "|" + customDelimiter; // 기본 + 커스텀 결합
