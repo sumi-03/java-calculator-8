@@ -13,30 +13,34 @@ public class StringCalculator {
 
         input = InputValidator.validateEmpty(input);
 
-        if (input.isEmpty()) {
+        if (input.isEmpty()) return 0;
 
-            return 0;
-        }
+        String[] tokens = parseNumbers(input);
+
+        InputValidator.validateNoNegative(tokens);
+
+        return calculateSum(tokens);
+    }
+
+    private String[] parseNumbers(String input) {
 
         Matcher matcher = InputValidator.validateCustomDelimiterFormat(input);
-
-        String numbers;
         String delimiter = DEFAULT_DELIMITERS;
+        String numbers = input;
 
-        if (matcher != null) { // 커스텀 구분자 존재
+        if (matcher != null) {
 
-            String customDelimiter = Pattern.quote(matcher.group(1)); // 커스텀 구분자
-            delimiter = DEFAULT_DELIMITERS + "|" + customDelimiter; // 기본 + 커스텀 결합
-            numbers = matcher.group(2); // 계산할 문자열
-        } else {
-            numbers = input;
+            String customDelimiter = Pattern.quote(matcher.group(1));
+            delimiter += "|" + customDelimiter;
+            numbers = matcher.group(2);
         }
 
         InputValidator.validateAllowedCharacters(numbers, delimiter);
 
-        String[] tokens = numbers.split(delimiter);
+        return numbers.split(delimiter);
+    }
 
-        InputValidator.validateNoNegative(tokens);
+    private int calculateSum(String[] tokens) {
 
         int sum = 0;
 
