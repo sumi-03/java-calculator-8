@@ -5,15 +5,14 @@ import calculator.util.InputValidator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StringCalculator {
+import static calculator.util.CalculatorConstants.CUSTOM_DELIMITER_PATTERN;
+import static calculator.util.CalculatorConstants.DEFAULT_DELIMITERS;
 
-    private static final String DEFAULT_DELIMITERS = ",|:"; // 기본 구분자
-    private static final String CUSTOM_DELIMITER_PATTERN = "//(.)\\n(.*)"; // //;\n1;2;3 형식 검증용 정규식
-    private final InputValidator inputValidator = new InputValidator();
+public class StringCalculator {
 
     public int calculate(String input) {
 
-        input = inputValidator.validateEmpty(input);
+        input = InputValidator.validateEmpty(input);
 
         if (input.isEmpty()) {
 
