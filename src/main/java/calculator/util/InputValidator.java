@@ -77,4 +77,20 @@ public class InputValidator {
             throw new IllegalArgumentException("입력값에 허용되지 않은 문자가 포함되어 있습니다.");
         }
     }
+
+    public static void validateNoNegative(String[] tokens) {
+
+        for (String token : tokens) {
+
+            if (!token.isEmpty()) {
+
+                int number = Integer.parseInt(token);
+
+                if (number < 0) {
+
+                    throw new IllegalArgumentException("음수는 허용되지 않습니다.");
+                }
+            }
+        }
+    }
 }
